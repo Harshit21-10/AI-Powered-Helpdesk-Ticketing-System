@@ -1,245 +1,329 @@
 # 🤖 AI-Powered Helpdesk Ticketing System
 
-An intelligent **full-stack helpdesk platform** that automates customer support workflows using **AI, LLM tools, and semantic search**.
-The system allows users to raise support tickets, interact with an AI assistant, and automatically notify the support team via email.
+An intelligent full-stack helpdesk platform that automates customer support workflows using **Spring AI**, **Google Gemini**, and **tool calling**. The system enables users to raise support tickets, interact with an AI assistant, and automatically notify support teams via email.
 
 ---
 
-## 📌 Overview
+## 🚀 Live Demo
 
-The **AI-Powered Helpdesk Ticketing System** combines traditional ticket management with modern AI capabilities.
-Instead of manually handling every request, an AI assistant can:
+🔗 **Frontend:** Coming Soon
+🔗 **Backend API:** Coming Soon
 
-* Understand user issues conversationally
-* Search internal documentation using vector embeddings
-* Generate summaries and responses
-* Automatically create and escalate support tickets
-* Notify support teams via email
+> Deploying soon using Docker and cloud hosting.
 
-This project demonstrates **real-world AI integration** with a production-style full-stack architecture.
 
----
 
-## 🚀 Key Features
+# ✨ Features
 
-### 🎫 Ticket Management
+### 🎫 Intelligent Ticket Management
 
-* Create and manage helpdesk tickets
-* Track ticket summaries and user details
-* Automated ticket creation via AI tools
+* Create and manage support tickets
+* Auto-generate ticket summaries
+* Store and retrieve tickets from PostgreSQL
+* AI-assisted ticket creation
 
-### 🤖 AI Assistant (Spring AI + LLM)
+### 🤖 AI-Powered Support Assistant
 
-* Conversational chatbot for support queries
-* Context-aware responses using chat memory
+* Conversational chatbot using Google Gemini
+* Context-aware responses with chat memory
 * Tool calling for real-world actions
+* Streaming responses support
 
+### 📧 Automated Email Notifications
 
-### 📧 Automated Support Email Tool
+* AI-triggered support emails
+* Automatic ticket escalation
+* Structured ticket summaries
 
-* AI triggers email notifications to support teams
-* Structured ticket summaries sent automatically
+### 🐳 Dockerized Deployment
 
+* Containerized backend and frontend
+* Docker Compose orchestration
+* Production-ready deployment setup
 
-### 💻 Modern Full Stack Architecture
+### 💻 Modern Full-Stack Architecture
 
-* Secure backend APIs
-* Responsive React frontend
-* Clean modular service design
+* Spring Boot REST APIs
+* React frontend
+* PostgreSQL database
+* Clean modular architecture
 
 ---
 
-## 🏗️ Tech Stack
+# 🏗️ System Architecture
 
-### Backend
+```text
+                ┌──────────────────┐
+                │   React Frontend │
+                └────────┬─────────┘
+                         │ REST API
+                         ▼
+                ┌──────────────────┐
+                │ Spring Boot API  │
+                └────────┬─────────┘
+                         │
+        ┌────────────────┴────────────────┐
+        │                                 │
+        ▼                                 ▼
+┌──────────────────┐          ┌──────────────────┐
+│    Gemini AI     │          │   PostgreSQL DB  │
+│  (Spring AI)     │          │  Ticket Storage  │
+└──────────────────┘          └──────────────────┘
+        │
+        ▼
+┌──────────────────┐
+│  Email Tool API  │
+└──────────────────┘
+```
 
-* **Java 22**
-* **Spring Boot**
-* **Spring AI**
-* **Spring Data JPA**
-* **PostgreSQL**
-* **JavaMailSender (Email Service)**
+---
 
-### AI & LLM
+# 🛠️ Tech Stack
 
-* **Gemini AI**
-* Tool Calling via `@Tool`
-* Chat Memory Advisors
-* Streaming responses
+## Backend
 
-### Frontend
+* Java 22
+* Spring Boot 3
+* Spring AI
+* Spring Data JPA
+* Hibernate
+* Maven
+* JavaMailSender
 
-* **ReactJS**
-* Modern UI with animations
-* REST API integration
+## Frontend
 
-### Database
+* ReactJS
+* JavaScript
+* Axios
+* Tailwind CSS
+* ShadCN UI
+
+## Database
 
 * PostgreSQL
 
----
+## AI & LLM
 
-## 🧩 System Architecture
+* Google Gemini API
+* Spring AI Tool Calling
+* Chat Memory
 
-```
-User (React UI)
-        │
-        ▼
-Spring Boot Backend (REST APIs)
-        │
-        ├── Spring AI Chat Client
-        │       ├── LLM (Gemini)
-        │       ├── Tools (Email Sender)
-        │       └── Chat Memory
-        │
-        └── PostgreSQL Database
-```
+## DevOps
+
+* Docker
+* Docker Compose
+* Nginx
+* Git & GitHub
 
 ---
 
-## ⚙️ Setup Instructions
+# 📂 Project Structure
 
-### 1️⃣ Clone Repository
+```text
+AI-Powered-Helpdesk-Ticketing-System
+│
+├── helpdesk-backend
+│   ├── src
+│   ├── Dockerfile
+│   └── pom.xml
+│
+├── helpdesk-frontend
+│   ├── src
+│   ├── Dockerfile
+│   └── nginx.conf
+│
+├── docker-compose.yml
+├── .env
+└── README.md
+```
+
+---
+
+# ⚙️ Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+DB_NAME=helpdesk_db
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+
+GEMINI_API_KEY=your_gemini_api_key
+
+E_USERNAME=your_email@gmail.com
+E_PASS=your_app_password
+```
+
+---
+
+# 🚀 Running with Docker
+
+### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/ai-helpdesk-ticketing-system.git
-cd ai-helpdesk-ticketing-system
+git clone https://github.com/your-username/AI-Powered-Helpdesk-Ticketing-System.git
+cd AI-Powered-Helpdesk-Ticketing-System
 ```
 
----
-
-
-
-### 4️⃣ Backend Configuration
-
-Update `application.properties`:
-
-```properties
-# PostgreSQL
-spring.datasource.url=jdbc:postgresql://localhost:5432/helpdesk_db
-spring.datasource.username=postgres
-spring.datasource.password=postgres
-
-# Gemini
-spring.ai.google.genai.api-key=${GEMINI_API_KEY}
-spring.ai.google.genai.chat.options.model=gemini-3-flash-preview
-
-# Email (App Password required)
-spring.mail.host=smtp.gmail.com
-spring.mail.port=587
-spring.mail.username=your-email@gmail.com
-spring.mail.password=${MAIL_APP_PASSWORD}
-spring.mail.properties.mail.smtp.auth=true
-spring.mail.properties.mail.smtp.starttls.enable=true
-```
-
----
-
-### 5️⃣ Run Backend
+### Start Containers
 
 ```bash
-./mvnw spring-boot:run
+docker compose up --build
 ```
 
-Backend starts at:
+### Services
 
+| Service    | Port |
+| ---------- | ---- |
+| Frontend   | 3000 |
+| Backend    | 8080 |
+| PostgreSQL | 5432 |
+
+### Access Application
+
+Frontend:
+
+```text
+http://localhost:3000
 ```
+
+Backend:
+
+```text
 http://localhost:8080
 ```
 
 ---
 
-### 6️⃣ Run Frontend
+# ▶️ Running Without Docker
+
+## Backend
 
 ```bash
-cd frontend
+cd helpdesk-backend
+./mvnw spring-boot:run
+```
+
+## Frontend
+
+```bash
+cd helpdesk-frontend
 npm install
-npm start
-```
-
-Frontend runs at:
-
-```
-http://localhost:3000
+npm run dev
 ```
 
 ---
 
-## 🧠 AI Workflow
+# 🔌 API Endpoints
 
-1. User asks a support question
-2. AI checks conversation context
-3. Generates grounded response
-4. If needed → invokes **Support Email Tool**
-5. Ticket email is sent automatically
+## AI Chat Response
 
----
-
-## 🛠️ Example Tool (AI Action)
-
-The AI can execute real backend logic:
-
-```java
-@Tool(description = "Send email to support team for new ticket")
-public String sendEmailToSupportTeam(String email, String message)
+```http
+POST /api/ai/helpdesk
 ```
 
-The LLM decides **when** to call this tool based on user intent.
+Headers:
+
+```http
+conversationId: <uuid>
+```
+
+Body:
+
+```text
+How can I reset my password?
+```
 
 ---
 
+## Streaming Response
 
+```http
+POST /api/ai/stream
+```
 
-## 🔐 Environment Variables (Recommended)
+Headers:
+
+```http
+conversationId: <uuid>
+```
+
+---
+
+# 🧠 AI Workflow
+
+1. User submits a support query.
+2. AI processes the request.
+3. Chat memory provides context.
+4. AI generates a response.
+5. AI may invoke tools:
+
+   * Create ticket
+   * Send support email
+6. Ticket information is stored in PostgreSQL.
+
+---
+
+# 🎯 Resume Highlights
+
+* Built an AI-powered enterprise helpdesk system using Spring AI and Google Gemini.
+* Designed a full-stack architecture using React, Spring Boot, and PostgreSQL.
+* Implemented AI tool calling and automated email workflows.
+* Dockerized the complete application using Docker Compose.
+* Applied production concepts including environment variables, CORS handling, and container networking.
+
+---
+
+# 🚀 Future Enhancements
+
+* JWT Authentication
+* Role-Based Access Control
+* Admin Dashboard
+* Kafka Event Processing
+* Redis Caching
+* Vector Database for RAG
+* CI/CD with GitHub Actions
+* AWS/GCP Deployment
+
+---
+
+# 🤝 Contributing
+
+1. Fork the repository.
+2. Create a feature branch.
 
 ```bash
-MAIL_APP_PASSWORD=your_app_password
+git checkout -b feature-name
 ```
 
----
+3. Commit changes.
 
-## ✅ Future Enhancements
+```bash
+git commit -m "Add new feature"
+```
 
-* JWT Authentication & Role-based access
-* Ticket status workflow (Open → In Progress → Resolved)
-* Admin dashboard analytics
-* Multi-agent AI workflows
-* Async email queue (Kafka/RabbitMQ)
-* Cloud deployment (AWS/GCP)
+4. Push changes.
 
----
+```bash
+git push origin feature-name
+```
 
-## 🎯 Learning Outcomes
-
-This project demonstrates:
-
-* Real-world **LLM integration with Java**
-* Tool calling using Spring AI
-* AI + traditional backend integration
-* Production-ready system design
+5. Open a Pull Request.
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome!
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit changes
-4. Open a Pull Request
-
----
-
-## 📜 License
+# 📜 License
 
 This project is licensed under the MIT License.
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-Built as a full-stack AI engineering project to explore practical applications of LLMs in enterprise systems.
+**Harshit Raj**
+
+* GitHub: https://github.com/Harshit21-10
+* LinkedIn: https://linkedin.com/in/harshit-raj-492869258
 
 ---
 
