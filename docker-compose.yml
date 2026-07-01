@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: helpdesk_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    image: harshitraj21/ai-powered-helpdesk-ticketing-system-backend
+    container_name: helpdesk-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      E_USERNAME: ${E_USERNAME}
+      E_PASS: ${E_PASS}
+
+  frontend:
+    image: harshitraj21/ai-powered-helpdesk-ticketing-system-frontend
+    container_name: helpdesk-frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+
+
+
+
+volumes:
+  postgres_data:

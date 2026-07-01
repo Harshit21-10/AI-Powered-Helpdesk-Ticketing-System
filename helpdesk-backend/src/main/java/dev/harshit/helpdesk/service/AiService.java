@@ -25,13 +25,27 @@ public class AiService {
     private Resource systemPrompt;
 
     public String getResponseFromAssistant(String query, String conversationId){
-        return chatClient.prompt()
-                .advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID, conversationId))
-                .user(query)
-                .tools(ticketDatabaseTool, emailTool)
-                .system(systemPrompt)
-                .call()
-                .content();
+        System.out.println("Received query: " + query);
+        try {
+            System.out.println("Calling Gemini...");
+
+            String response = chatClient.prompt()
+                    .advisors(advisorSpec ->
+                            advisorSpec.param(ChatMemory.CONVERSATION_ID, conversationId))
+                    .user(query)
+                    .tools(ticketDatabaseTool, emailTool)
+                    .system(systemPrompt)
+                    .call()
+                    .content();
+
+            System.out.println("Gemini response received.");
+
+            return response;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
     }
     public Flux<String> streamResponseFromAssistant(String query, String conversationId){
         return this.chatClient.prompt()
