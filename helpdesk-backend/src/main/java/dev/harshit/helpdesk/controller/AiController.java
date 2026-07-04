@@ -10,10 +10,6 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/ai")
-@CrossOrigin(origins = {
-        "http://localhost:3000",
-        "http://localhost:5173"
-})
 public class AiController {
     private final AiService service;
     @PostMapping("/helpdesk")

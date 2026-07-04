@@ -11,33 +11,34 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   backend:
-    image: harshitraj21/ai-powered-helpdesk-ticketing-system-backend
+    build:
+      context: ./helpdesk-backend
     container_name: helpdesk-backend
     restart: always
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     depends_on:
-      - postgres
-    environment:
-      DB_URL: jdbc:postgresql://postgres:5432/${DB_NAME}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
-      GEMINI_API_KEY: ${GEMINI_API_KEY}
-      E_USERNAME: ${E_USERNAME}
-      E_PASS: ${E_PASS}
+      postgres:
+        condition: service_healthy
 
   frontend:
-    image: harshitraj21/ai-powered-helpdesk-ticketing-system-frontend
+    build:
+      context: ./helpdesk-frontend
     container_name: helpdesk-frontend
     restart: always
     ports:
       - "3000:80"
     depends_on:
       - backend
-
-
 
 
 
