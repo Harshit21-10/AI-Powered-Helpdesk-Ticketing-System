@@ -14,7 +14,7 @@ public class AiController {
     private final AiService service;
     @PostMapping("/helpdesk")
     public ResponseEntity<String> getResponse(@RequestBody String query, @RequestHeader String conversationId){
-        System.out.println("Controller hit");
+        System.out.println("Controller hit..");
         System.out.println("Query = " + query);
         return ResponseEntity.ok(service.getResponseFromAssistant(query,conversationId));
     }
